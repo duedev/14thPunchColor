@@ -1,0 +1,921 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Punch List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Construction Punch List by Status and Trade</h1>
+
+    <div class="filter">
+        <label for="status-filter">Filter by Status: </label>
+        <select id="status-filter" onchange="filterByStatus()">
+            <option value="all">All</option>
+            <option value="red">Completed</option>
+            <option value="blue">In Progress</option>
+            <option value="green">Not in scope</option>
+            <option value="purple">Completed per plan before changes</option>
+            <option value="orange">Need pricing, Change in Scope</option>
+        </select>
+    </div>
+
+    <div class="legend">
+        <h3>Status Color Legend</h3>
+        <p><span class="color-box red"></span> Completed</p>
+        <p><span class="color-box blue"></span> In Progress</p>
+        <p><span class="color-box green"></span> Not in scope</p>
+        <p><span class="color-box purple"></span> Completed per plan before changes were communicated</p>
+        <p><span class="color-box orange"></span> Need pricing, Change in Scope</p>
+    </div>
+
+    <h2 class="status-header">Completed <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
+    <div class="section-content">
+        <h3 class="trade-header">Architectural <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - Architectural Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>1</td>
+                        <td>Remove any old bank signage from site</td>
+                    </tr>
+                    <tr class="red">
+                        <td>2</td>
+                        <td>Check exit signs and compare them against approved plans. There may be missing in the first floor</td>
+                    </tr>
+                    <tr class="red">
+                        <td>3</td>
+                        <td>Canopy at loading dock/warehouse missing</td>
+                    </tr>
+                    <tr class="red">
+                        <td>4</td>
+                        <td>Trash enclosure not finished. Canopy not painted</td>
+                    </tr>
+                    <tr class="red">
+                        <td>5</td>
+                        <td>Install vinyl decals at mural wall (second floor)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Interiors <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - Interiors Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>21</td>
+                        <td>2nd floor breakroom gap infill near ceiling</td>
+                    </tr>
+                    <tr class="red">
+                        <td>22</td>
+                        <td>A216: Sink disconnected for counter height adjustment. Ensure proper re-installation/reconnection</td>
+                    </tr>
+                    <tr class="red">
+                        <td>23</td>
+                        <td>Restroom Accessories: Provide surface mounted trash and paper towel dispenser combo, (1) each, in first floor restrooms A124 and A123. Assume Bobrick B-39619 or sim</td>
+                    </tr>
+                    <tr class="red">
+                        <td>24</td>
+                        <td>Appliance: Fridge and microwaves missing in Breakroom A201</td>
+                    </tr>
+                    <tr class="red">
+                        <td>25</td>
+                        <td>Finish: On Level 2, please confirm specification general grey carpet installed. Onsite, looks like a 24x24 tile in quarter turn is installed. CD calls out for 18x36 in ashlar</td>
+                    </tr>
+                    <tr class="red">
+                        <td>26</td>
+                        <td>Finish: On Level 1, please confirm specification and direction on why the green carpet is installed everywhere. Architect is not aware of the green carpet installation, please provide information if this was a client direction? (RSO Approved)</td>
+                    </tr>
+                    <tr class="red">
+                        <td>27</td>
+                        <td>Wall base: Wall base is missing on west wall in entry vestibule A221</td>
+                    </tr>
+                    <tr class="red">
+                        <td>28</td>
+                        <td>Appliance: Undercounter fridge and microwave missing in room A216</td>
+                    </tr>
+                    <tr class="red">
+                        <td>29</td>
+                        <td>Plumbing Fixtures: Showerhead is missing in non-ADA shower stall in room A207 and A206</td>
+                    </tr>
+                    <tr class="red">
+                        <td>30</td>
+                        <td>Window Covering: Fix wrinkles on blackout shade in Room A220</td>
+                    </tr>
+                    <tr class="red">
+                        <td>31</td>
+                        <td>Window Covering: Adjust window covering fascia cover, to provide additional space required for chain. Currently metal chain and metal cover interferes with each other when pulling down. Room A220</td>
+                    </tr>
+                    <tr class="red">
+                        <td>32</td>
+                        <td>Door: Door A118 is missing glass in vision panel</td>
+                    </tr>
+                    <tr class="red">
+                        <td>33</td>
+                        <td>Wall Base: Room A100 through Room A106 are all missing wall base, provide</td>
+                    </tr>
+                    <tr class="red">
+                        <td>34</td>
+                        <td>Install microwaves and TVs per provided locations</td>
+                    </tr>
+                    <tr class="red">
+                        <td>35</td>
+                        <td>Provide trash cans at first floor restrooms</td>
+                    </tr>
+                    <tr class="red">
+                        <td>36</td>
+                        <td>Stair Carpet flooring</td>
+                    </tr>
+                    <tr class="red">
+                        <td>37</td>
+                        <td>Paint wall at stair landing (behind elevator)</td>
+                    </tr>
+                    <tr class="red">
+                        <td>38</td>
+                        <td>Flooring, nosing and warning strips missing at East stairway</td>
+                    </tr>
+                    <tr class="red">
+                        <td>39</td>
+                        <td>Wheel stops missing where indicated on site plan</td>
+                    </tr>
+                    <tr class="red">
+                        <td>40</td>
+                        <td>Move acoustical panels to RSO CJB basement</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - Electrical Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>56</td>
+                        <td>Price for lights at Armory room</td>
+                    </tr>
+                    <tr class="red">
+                        <td>57</td>
+                        <td>Exterior: Card readers to parking lot not yet functional/installed</td>
+                    </tr>
+                    <tr class="red">
+                        <td>58</td>
+                        <td>Exterior: Trash enclosure doors do not have power</td>
+                    </tr>
+                    <tr class="red">
+                        <td>59</td>
+                        <td>A132: Near Lobby A133, the power whip for the modular furniture has not been connected and is exposed</td>
+                    </tr>
+                    <tr class="red">
+                        <td>60</td>
+                        <td>Install Cameras at parking lot / Cameras in parking lot missing</td>
+                    </tr>
+                    <tr class="red">
+                        <td>61</td>
+                        <td>All existing parking lot light poles need to be painted to match new poles</td>
+                    </tr>
+                    <tr class="red">
+                        <td>62</td>
+                        <td>Verify Parking Lot Lights are working</td>
+                    </tr>
+                    <tr class="red">
+                        <td>63</td>
+                        <td>Add additional circuits at TSB area</td>
+                    </tr>
+                    <tr class="red">
+                        <td>64</td>
+                        <td>Access Control Readers</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Exterior <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - Exterior Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>91</td>
+                        <td>Exterior: Generator has not been installed / Install generator</td>
+                    </tr>
+                    <tr class="red">
+                        <td>92</td>
+                        <td>Paint Trash/generator steel & gates: brown</td>
+                    </tr>
+                    <tr class="red">
+                        <td>93</td>
+                        <td>Parking lot striping not complete. Stalls on the concrete paved areas are not finished</td>
+                    </tr>
+                    <tr class="red">
+                        <td>94</td>
+                        <td>Parking lot markings/stenciling directed by RSO on stalls as well as directional markings not completed / Parking Markings at Visitor & Loading Areas / (4) Visitor 2-hour signs</td>
+                    </tr>
+                    <tr class="red">
+                        <td>95</td>
+                        <td>Parking Stenciling</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - Site Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>105</td>
+                        <td>Entry Gate at Orange Missing Panic Hardware / Panic Hardware on Pedestrian Gates</td>
+                    </tr>
+                    <tr class="red">
+                        <td>106</td>
+                        <td>All conduits at pedestrian gates for key cards to be painted to match gate color</td>
+                    </tr>
+                    <tr class="red">
+                        <td>107</td>
+                        <td>Gutter and downspout at trash enclosure missing</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">General <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed - General Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="red">
+                        <td>114</td>
+                        <td>Provide construction keys to RSO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="status-header">In Progress <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
+    <div class="section-content">
+        <h3 class="trade-header">Architectural <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Architectural Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>6</td>
+                        <td>Remove miscellaneous existing identification signage at offices</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>7</td>
+                        <td>Install new signage at offices and restrooms, exit signs</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>8</td>
+                        <td>Remove any occupancy, assistive listening devices signs</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>9</td>
+                        <td>Install existing signage from Castellano at MCB area (near elevator)</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>10</td>
+                        <td>Install Backlit Sign at TSB Area</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>11</td>
+                        <td>All ADA signage</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>12</td>
+                        <td>SIB Captain’s office changes</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>13</td>
+                        <td>Solid Roof right outside warehouse roll-up doors is missing</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>14</td>
+                        <td>Take down miscellaneous pole at planter</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Interiors <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Interiors Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>41</td>
+                        <td>General: Fix and re-align all crooked outlet cover plates</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>42</td>
+                        <td>General: Fix all wobbly base board (W)</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>43</td>
+                        <td>General: Clean all private office tack panel</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>44</td>
+                        <td>General: Replace/Clean all dirty or damage acoustical Ceiling tiles throughout (W)</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>45</td>
+                        <td>Coverplate: Provide cover plate for exposed in wall power cutout in room A113</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>46</td>
+                        <td>Mirrors missing at Gym</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>47</td>
+                        <td>Sidelight glass at door missing (first floor)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Electrical Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>65</td>
+                        <td>TYP.: Provide panel schedules for all newly installed/updated panels</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>66</td>
+                        <td>A116-1, A144-1, A216-1: Light switch is difficult to press. Up button not functioning</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>67</td>
+                        <td>Missing GFCI outlets in second floor breakroom</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>68</td>
+                        <td>LED mirrors and additional lighting missing</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>69</td>
+                        <td>Bullet-proof glass</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - HVAC Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>79</td>
+                        <td>A201 Break Room: VAV-2-13 tag missing on T-stat</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>80</td>
+                        <td>2nd Floor Restroom Hallway/Corridor: Supply & Return Diffuser/Grilles not installed</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>81</td>
+                        <td>General: Fix all crooked or mis-aligned diffusers, clean diffusers as required</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>82</td>
+                        <td>Check all supply and return air grilles are straight</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Plumbing <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Plumbing Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>86</td>
+                        <td>Adjust sensors at sink faucets all bathrooms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Exterior <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Exterior Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>96</td>
+                        <td>Stairs at West Plaza missing warning nosing strips, all steps</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>97</td>
+                        <td>Check all exterior doors weather strips</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - Site Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>108</td>
+                        <td>Pedestrian gate at Mission St entrance does not have the adequate ADA clearance. The sidewalk poured too narrow</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">General <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="In Progress - General Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="blue">
+                        <td>115</td>
+                        <td>Miscellaneous Cleaning</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>116</td>
+                        <td>Clean all parking & interior areas of any remaining construction materials debris (e.g., nails, screws, caulking, trash) related to scope</td>
+                    </tr>
+                    <tr class="blue">
+                        <td>117</td>
+                        <td>GC to coordinate building keying with RSO</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="status-header">Not in scope <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
+    <div class="section-content">
+        <h3 class="trade-header">Interiors <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Not in scope - Interiors Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="green">
+                        <td>48</td>
+                        <td>Shower Curtain: Please provide ADA shower curtain in all ADA shower stalls in room A205, A206, and A207. Assume Inpro ADA shower curtain or sim</td>
+                    </tr>
+                    <tr class="green">
+                        <td>49</td>
+                        <td>Door: Door and frame A217 to be painted green to match wall adjacent (RSO Approved AS-IS)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Not in scope - Electrical Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="green">
+                        <td>70</td>
+                        <td>A201-1: Receptacles on West Wall are to be GFCI</td>
+                    </tr>
+                    <tr class="green">
+                        <td>71</td>
+                        <td>A205-1: Missing above counter GFI receptacle</td>
+                    </tr>
+                    <tr class="green">
+                        <td>72</td>
+                        <td>Lighting: Lower linear pendant in training room to allow continuous coverage of indirect up light. Coordinate height drop with light spread before cutting the cable (RSO Approved AS-IS)</td>
+                    </tr>
+                    <tr class="green">
+                        <td>73</td>
+                        <td>Lighting: Lower linear pendant in training room to allow continuous coverage of indirect up light. Coordinate height drop with light spread before cutting the cable (RSO Approved AS-IS)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Not in scope - HVAC Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="green">
+                        <td>83</td>
+                        <td>Roof: OU-2-1 insulation jacket not securely fashioned</td>
+                    </tr>
+                    <tr class="green">
+                        <td>84</td>
+                        <td>Roof: New exhaust fan does not have localized disconnecting means and is energized. EF has loose wiring with wire nuts that are not rated for exterior use</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Plumbing <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Not in scope - Plumbing Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="green">
+                        <td>87</td>
+                        <td>ADA shower curtain at women’s single restroom</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="status-header">Completed per plan before changes were communicated <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
+    <div class="section-content">
+        <h3 class="trade-header">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Completed per plan before changes - Site Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="purple">
+                        <td>109</td>
+                        <td>All pedestrian gate width were increased from 3'-0" to 3'-6" and this is creating ADA clearance issues</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h2 class="status-header">Need pricing, Change in Scope <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
+    <div class="section-content">
+        <h3 class="trade-header">Architectural <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Architectural Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>15</td>
+                        <td>Change women’s single restrooms signage to unisex</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>16</td>
+                        <td>Remove miscellaneous existing signage around exterior building & parking lot</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>17</td>
+                        <td>Remove existing ATM canopy after price approval</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>18</td>
+                        <td>Repaint Stucco patch at Southeast corner of the building to match brick</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>19</td>
+                        <td>All exterior hollow metal doors need to be painted to match brick</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>20</td>
+                        <td>All conduits for cameras, electrical etc. to be painted to match brick</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Interiors <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Interiors Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>50</td>
+                        <td>Soap, towel dispensers in breakrooms</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>51</td>
+                        <td>Mirror: In Room A236, please provide mirror in north and west wall in the gym. Please provide location markup to client for approval before proceeding</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>52</td>
+                        <td>Restroom Accessories: Please remove existing mirror from both room A207 and A206, please provide (3) edge/backlit mirror each in each room. Coordinate with client for specifications. Provide infrastructure as req</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>53</td>
+                        <td>Finishes: Provide Forbo Rubber Bulletin Board with Metal Trim to match wood panel dimension, at 1st floor copy area to cover damage panel due to sign removal</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>54</td>
+                        <td>Mirrors at Gym</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>55</td>
+                        <td>Bulletin Board to at SIB entry to cover damaged wood panel</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Electrical Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>74</td>
+                        <td>Additional can lights at restrooms</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>75</td>
+                        <td>L33/C-1.0: Relocated pole has a cracked bolt cover. Please repair or replace</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>76</td>
+                        <td>Restroom Lighting: Provide new wall washing linear light at mirror location in room A207 and Room A206</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>77</td>
+                        <td>Paint Parking lot poles: brown</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>78</td>
+                        <td>LED Mirrors at Restrooms</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - HVAC Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>85</td>
+                        <td>Install HVAC solution supply at 2nd Floor Storage room from adjacent mechanical room (after price approval)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Plumbing <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Plumbing Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>88</td>
+                        <td>Hose bib needed at west side of building / Hose-bib at exterior (near future fountain) per Owner Request</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>89</td>
+                        <td>Water fountain missing</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>90</td>
+                        <td>The new backflow requires a protection cage. If no cage is desired, paint backflow Dunn Edwards Deep Pine DEA180</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Exterior <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Exterior Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>98</td>
+                        <td>Paint exterior janitorial doors</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>99</td>
+                        <td>Paint miscellaneous conduit on exterior of building</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>100</td>
+                        <td>Warehouse awning</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>101</td>
+                        <td>Paint all handrails (brown) / Handrails not painted. Stairs and Ramp</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>102</td>
+                        <td>Power washing at exterior walls / Pressure wash building</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>103</td>
+                        <td>Chain-Link Fence/ornamental pricing near generator to secure employee parking</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>104</td>
+                        <td>Chain-link Fence pricing for areas behind the parking lot to avoid homeless camps</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="trade-header">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+        <div class="trade-content">
+            <table aria-label="Need pricing, Change in Scope - Site Punch List">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="orange">
+                        <td>110</td>
+                        <td>Need closure between trash enclosure and fence along Mission St</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>111</td>
+                        <td>Gate at North-West side of building leading to utility closet does not require panic hardware</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>112</td>
+                        <td>Panels at pedestrian gates (price option for perforated vs. solid)</td>
+                    </tr>
+                    <tr class="orange">
+                        <td>113</td>
+                        <td>Complete all landscape & fencing improvements / Landscape & Irrigation / The landscape is not complete</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
