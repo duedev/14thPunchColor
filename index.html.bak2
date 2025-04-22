@@ -62,20 +62,24 @@
                     </thead>
                     <tbody>
                         <tr class="red">
+                            <td>1</td>
+                            <td>Remove any old bank signage from site</td>
+                        </tr>
+                        <tr class="red">
                             <td>2</td>
                             <td>Check exit signs and compare them against approved plans. There may be missing in the first floor</td>
                         </tr>
                         <tr class="red">
+                            <td>3</td>
+                            <td>Canopy at loading dock/warehouse missing</td>
+                        </tr>
+                        <tr class="red">
+                            <td>4</td>
+                            <td>Trash enclosure not finished. Canopy not painted</td>
+                        </tr>
+                        <tr class="red">
                             <td>5</td>
                             <td>Install vinyl decals at mural wall (second floor)</td>
-                        </tr>
-                        <tr class="red">
-                            <td>12</td>
-                            <td>SIB Captain’s office changes</td>
-                        </tr>
-                        <tr class="red">
-                            <td>14</td>
-                            <td>Take down miscellaneous pole at planter</td>
                         </tr>
                     </tbody>
                 </table>
@@ -171,14 +175,6 @@
                             <td>40</td>
                             <td>Move acoustical panels to RSO CJB basement</td>
                         </tr>
-                        <tr class="red">
-                            <td>41</td>
-                            <td>General: Fix and re-align all crooked outlet cover plates</td>
-                        </tr>
-                        <tr class="red">
-                            <td>47</td>
-                            <td>Sidelight glass at door missing (first floor)</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -214,6 +210,10 @@
                             <td>Install Cameras at parking lot / Cameras in parking lot missing</td>
                         </tr>
                         <tr class="red">
+                            <td>61</td>
+                            <td>All existing parking lot light poles need to be painted to match new poles</td>
+                        </tr>
+                        <tr class="red">
                             <td>62</td>
                             <td>Verify Parking Lot Lights are working</td>
                         </tr>
@@ -224,44 +224,6 @@
                         <tr class="red">
                             <td>64</td>
                             <td>Access Control Readers</td>
-                        </tr>
-                        <tr class="red">
-                            <td>66</td>
-                            <td>A116-1, A144-1, A216-1: Light switch is difficult to press. Up button not functioning</td>
-                        </tr>
-                        <tr class="red">
-                            <td>75</td>
-                            <td>L33/C-1.0: Relocated pole has a cracked bolt cover. Please repair or replace</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <h3 class="trade-header" data-trade="HVAC">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
-            <div class="trade-content">
-                <table aria-label="Completed - HVAC Punch List">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="red">
-                            <td>79</td>
-                            <td>A201 Break Room: VAV-2-13 tag missing on T-stat</td>
-                        </tr>
-                        <tr class="red">
-                            <td>80</td>
-                            <td>2nd Floor Restroom Hallway/Corridor: Supply & Return Diffuser/Grilles not installed</td>
-                        </tr>
-                        <tr class="red">
-                            <td>81</td>
-                            <td>General: Fix all crooked or mis-aligned diffusers, clean diffusers as required</td>
-                        </tr>
-                        <tr class="red">
-                            <td>82</td>
-                            <td>Check all supply and return air grilles are straight</td>
                         </tr>
                     </tbody>
                 </table>
@@ -282,20 +244,20 @@
                             <td>Exterior: Generator has not been installed / Install generator</td>
                         </tr>
                         <tr class="red">
+                            <td>92</td>
+                            <td>Paint Trash/generator steel & gates: brown</td>
+                        </tr>
+                        <tr class="red">
                             <td>93</td>
                             <td>Parking lot striping not complete. Stalls on the concrete paved areas are not finished</td>
                         </tr>
                         <tr class="red">
+                            <td>94</td>
+                            <td>Parking lot markings/stenciling directed by RSO on stalls as well as directional markings not completed / Parking Markings at Visitor & Loading Areas / (4) Visitor 2-hour signs</td>
+                        </tr>
+                        <tr class="red">
                             <td>95</td>
                             <td>Parking Stenciling</td>
-                        </tr>
-                        <tr class="red">
-                            <td>96</td>
-                            <td>Stairs at West Plaza missing warning nosing strips, all steps</td>
-                        </tr>
-                        <tr class="red">
-                            <td>97</td>
-                            <td>Check all exterior doors weather strips</td>
                         </tr>
                     </tbody>
                 </table>
@@ -316,12 +278,12 @@
                             <td>Entry Gate at Orange Missing Panic Hardware / Panic Hardware on Pedestrian Gates</td>
                         </tr>
                         <tr class="red">
-                            <td>111</td>
-                            <td>Gate at North-West side of building leading to utility closet does not require panic hardware</td>
+                            <td>106</td>
+                            <td>All conduits at pedestrian gates for key cards to be painted to match gate color</td>
                         </tr>
                         <tr class="red">
-                            <td>112</td>
-                            <td>Panels at pedestrian gates (price option for perforated vs. solid)</td>
+                            <td>107</td>
+                            <td>Gutter and downspout at trash enclosure missing</td>
                         </tr>
                     </tbody>
                 </table>
@@ -341,10 +303,6 @@
                             <td>114</td>
                             <td>Provide construction keys to RSO</td>
                         </tr>
-                        <tr class="red">
-                            <td>115</td>
-                            <td>Miscellaneous Cleaning</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -362,18 +320,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="blue">
-                            <td>1</td>
-                            <td>Remove any old bank signage from site</td>
-                        </tr>
-                        <tr class="blue">
-                            <td>3</td>
-                            <td>Canopy at loading dock/warehouse missing</td>
-                        </tr>
-                        <tr class="blue">
-                            <td>4</td>
-                            <td>Trash enclosure not finished. Canopy not painted</td>
-                        </tr>
                         <tr class="blue">
                             <td>6</td>
                             <td>Remove miscellaneous existing identification signage at offices</td>
@@ -399,8 +345,16 @@
                             <td>All ADA signage</td>
                         </tr>
                         <tr class="blue">
+                            <td>12</td>
+                            <td>SIB Captain’s office changes</td>
+                        </tr>
+                        <tr class="blue">
                             <td>13</td>
                             <td>Solid Roof right outside warehouse roll-up doors is missing</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>14</td>
+                            <td>Take down miscellaneous pole at planter</td>
                         </tr>
                     </tbody>
                 </table>
@@ -417,8 +371,16 @@
                     </thead>
                     <tbody>
                         <tr class="blue">
+                            <td>41</td>
+                            <td>General: Fix and re-align all crooked outlet cover plates</td>
+                        </tr>
+                        <tr class="blue">
                             <td>42</td>
                             <td>General: Fix all wobbly base board (W)</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>43</td>
+                            <td>General: Clean all private office tack panel</td>
                         </tr>
                         <tr class="blue">
                             <td>44</td>
@@ -427,6 +389,14 @@
                         <tr class="blue">
                             <td>45</td>
                             <td>Coverplate: Provide cover plate for exposed in wall power cutout in room A113</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>46</td>
+                            <td>Mirrors missing at Gym</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>47</td>
+                            <td>Sidelight glass at door missing (first floor)</td>
                         </tr>
                     </tbody>
                 </table>
@@ -447,16 +417,50 @@
                             <td>TYP.: Provide panel schedules for all newly installed/updated panels</td>
                         </tr>
                         <tr class="blue">
+                            <td>66</td>
+                            <td>A116-1, A144-1, A216-1: Light switch is difficult to press. Up button not functioning</td>
+                        </tr>
+                        <tr class="blue">
                             <td>67</td>
                             <td>Missing GFCI outlets in second floor breakroom</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>68</td>
+                            <td>LED mirrors and additional lighting missing</td>
                         </tr>
                         <tr class="blue">
                             <td>69</td>
                             <td>Bullet-proof glass</td>
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 class="trade-header" data-trade="HVAC">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+            <div class="trade-content">
+                <table aria-label="In Progress - HVAC Punch List">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         <tr class="blue">
-                            <td>70</td>
-                            <td>A201-1: Receptacles on West Wall are to be GFCI</td>
+                            <td>79</td>
+                            <td>A201 Break Room: VAV-2-13 tag missing on T-stat</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>80</td>
+                            <td>2nd Floor Restroom Hallway/Corridor: Supply & Return Diffuser/Grilles not installed</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>81</td>
+                            <td>General: Fix all crooked or mis-aligned diffusers, clean diffusers as required</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>82</td>
+                            <td>Check all supply and return air grilles are straight</td>
                         </tr>
                     </tbody>
                 </table>
@@ -491,16 +495,12 @@
                     </thead>
                     <tbody>
                         <tr class="blue">
-                            <td>92</td>
-                            <td>Paint Trash/generator steel & gates: brown</td>
+                            <td>96</td>
+                            <td>Stairs at West Plaza missing warning nosing strips, all steps</td>
                         </tr>
                         <tr class="blue">
-                            <td>94</td>
-                            <td>Parking lot markings/stenciling directed by RSO on stalls as well as directional markings not completed / Parking Markings at Visitor & Loading Areas / (4) Visitor 2-hour signs</td>
-                        </tr>
-                        <tr class="blue">
-                            <td>101</td>
-                            <td>Paint all handrails (brown) / Handrails not painted. Stairs and Ramp</td>
+                            <td>97</td>
+                            <td>Check all exterior doors weather strips</td>
                         </tr>
                     </tbody>
                 </table>
@@ -517,20 +517,8 @@
                     </thead>
                     <tbody>
                         <tr class="blue">
-                            <td>106</td>
-                            <td>All conduits at pedestrian gates for key cards to be painted to match gate color</td>
-                        </tr>
-                        <tr class="blue">
-                            <td>107</td>
-                            <td>Gutter and downspout at trash enclosure missing</td>
-                        </tr>
-                        <tr class="blue">
                             <td>108</td>
                             <td>Pedestrian gate at Mission St entrance does not have the adequate ADA clearance. The sidewalk poured too narrow</td>
-                        </tr>
-                        <tr class="blue">
-                            <td>109</td>
-                            <td>All pedestrian gate width were increased from 3'-0" to 3'-6" and this is creating ADA clearance issues</td>
                         </tr>
                     </tbody>
                 </table>
@@ -547,8 +535,16 @@
                     </thead>
                     <tbody>
                         <tr class="blue">
+                            <td>115</td>
+                            <td>Miscellaneous Cleaning</td>
+                        </tr>
+                        <tr class="blue">
                             <td>116</td>
                             <td>Clean all parking & interior areas of any remaining construction materials debris (e.g., nails, screws, caulking, trash) related to scope</td>
+                        </tr>
+                        <tr class="blue">
+                            <td>117</td>
+                            <td>GC to coordinate building keying with RSO</td>
                         </tr>
                     </tbody>
                 </table>
@@ -568,20 +564,12 @@
                     </thead>
                     <tbody>
                         <tr class="green">
-                            <td>43</td>
-                            <td>General: Clean all private office tack panel</td>
-                        </tr>
-                        <tr class="green">
                             <td>48</td>
                             <td>Shower Curtain: Please provide ADA shower curtain in all ADA shower stalls in room A205, A206, and A207. Assume Inpro ADA shower curtain or sim</td>
                         </tr>
                         <tr class="green">
                             <td>49</td>
                             <td>Door: Door and frame A217 to be painted green to match wall adjacent (RSO Approved AS-IS)</td>
-                        </tr>
-                        <tr class="green">
-                            <td>50</td>
-                            <td>Soap, towel dispensers in breakrooms</td>
                         </tr>
                     </tbody>
                 </table>
@@ -597,6 +585,14 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr class="green">
+                            <td>70</td>
+                            <td>A201-1: Receptacles on West Wall are to be GFCI</td>
+                        </tr>
+                        <tr class="green">
+                            <td>71</td>
+                            <td>A205-1: Missing above counter GFI receptacle</td>
+                        </tr>
                         <tr class="green">
                             <td>72</td>
                             <td>Lighting: Lower linear pendant in training room to allow continuous coverage of indirect up light. Coordinate height drop with light spread before cutting the cable (RSO Approved AS-IS)</td>
@@ -648,31 +644,13 @@
                     </tbody>
                 </table>
             </div>
-
-            <h3 class="trade-header" data-trade="General">General <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
-            <div class="trade-content">
-                <table aria-label="Not in scope - General Punch List">
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="green">
-                            <td>117</td>
-                            <td>GC to coordinate building keying with RSO</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
         </div>
 
         <h2 class="status-header">Completed per plan before changes were communicated <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h2>
         <div class="section-content">
-            <h3 class="trade-header" data-trade="Electrical">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
+            <h3 class="trade-header" data-trade="Site">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Completed per plan - Electrical Punch List">
+                <table aria-label="Completed per plan before changes - Site Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -681,8 +659,8 @@
                     </thead>
                     <tbody>
                         <tr class="purple">
-                            <td>71</td>
-                            <td>A205-1: Missing above counter GFI receptacle</td>
+                            <td>109</td>
+                            <td>All pedestrian gate width were increased from 3'-0" to 3'-6" and this is creating ADA clearance issues</td>
                         </tr>
                     </tbody>
                 </table>
@@ -693,7 +671,7 @@
         <div class="section-content">
             <h3 class="trade-header" data-trade="Architectural">Architectural <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Architectural Punch List">
+                <table aria-label="Need pricing, Change in Scope - Architectural Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -731,7 +709,7 @@
 
             <h3 class="trade-header" data-trade="Interiors">Interiors <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Interiors Punch List">
+                <table aria-label="Need pricing, Change in Scope - Interiors Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -740,8 +718,8 @@
                     </thead>
                     <tbody>
                         <tr class="orange">
-                            <td>46</td>
-                            <td>Mirrors missing at Gym</td>
+                            <td>50</td>
+                            <td>Soap, towel dispensers in breakrooms</td>
                         </tr>
                         <tr class="orange">
                             <td>51</td>
@@ -769,7 +747,7 @@
 
             <h3 class="trade-header" data-trade="Electrical">Electrical <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Electrical Punch List">
+                <table aria-label="Need pricing, Change in Scope - Electrical Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -778,16 +756,12 @@
                     </thead>
                     <tbody>
                         <tr class="orange">
-                            <td>61</td>
-                            <td>All existing parking lot light poles need to be painted to match new poles</td>
-                        </tr>
-                        <tr class="orange">
-                            <td>68</td>
-                            <td>LED mirrors and additional lighting missing</td>
-                        </tr>
-                        <tr class="orange">
                             <td>74</td>
                             <td>Additional can lights at restrooms</td>
+                        </tr>
+                        <tr class="orange">
+                            <td>75</td>
+                            <td>L33/C-1.0: Relocated pole has a cracked bolt cover. Please repair or replace</td>
                         </tr>
                         <tr class="orange">
                             <td>76</td>
@@ -807,7 +781,7 @@
 
             <h3 class="trade-header" data-trade="HVAC">HVAC <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - HVAC Punch List">
+                <table aria-label="Need pricing, Change in Scope - HVAC Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -825,7 +799,7 @@
 
             <h3 class="trade-header" data-trade="Plumbing">Plumbing <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Plumbing Punch List">
+                <table aria-label="Need pricing, Change in Scope - Plumbing Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -851,7 +825,7 @@
 
             <h3 class="trade-header" data-trade="Exterior">Exterior <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Exterior Punch List">
+                <table aria-label="Need pricing, Change in Scope - Exterior Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -872,6 +846,10 @@
                             <td>Warehouse awning</td>
                         </tr>
                         <tr class="orange">
+                            <td>101</td>
+                            <td>Paint all handrails (brown) / Handrails not painted. Stairs and Ramp</td>
+                        </tr>
+                        <tr class="orange">
                             <td>102</td>
                             <td>Power washing at exterior walls / Pressure wash building</td>
                         </tr>
@@ -889,7 +867,7 @@
 
             <h3 class="trade-header" data-trade="Site">Site <button class="toggle-btn" onclick="toggleSection(this)">Collapse</button></h3>
             <div class="trade-content">
-                <table aria-label="Need pricing - Site Punch List">
+                <table aria-label="Need pricing, Change in Scope - Site Punch List">
                     <thead>
                         <tr>
                             <th>Item</th>
@@ -900,6 +878,14 @@
                         <tr class="orange">
                             <td>110</td>
                             <td>Need closure between trash enclosure and fence along Mission St</td>
+                        </tr>
+                        <tr class="orange">
+                            <td>111</td>
+                            <td>Gate at North-West side of building leading to utility closet does not require panic hardware</td>
+                        </tr>
+                        <tr class="orange">
+                            <td>112</td>
+                            <td>Panels at pedestrian gates (price option for perforated vs. solid)</td>
                         </tr>
                         <tr class="orange">
                             <td>113</td>
